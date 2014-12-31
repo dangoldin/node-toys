@@ -3,18 +3,14 @@ var express  = require('express'),
 
 var app = express();
 
-app.get('/', function(req, res) {
-	var x = req.param('x'),
-	    y = parseInt(req.param('y'),10) || 0,
-	    arr = x.split(',');
-	if (x && arr.length) {
-	    var a = arr.pop();
-	    y += parseInt(a,10);
-	    var url = '/?x=' + arr.join(',') + '&y=' + y;
-	    console.log('URL: ' + url);
-	    res.redirect(302, url);
+app.get('/sum', function(req, res) {
+	var n = parseInt(req.param('n'),10) || 0,
+	    a = parseInt(req.param('a'),10) || 0;
+	if (n === 0) {
+	    res.status(200).send('Sum: ' + a);
 	} else {
-	    res.status(200).send('Sum: ' + y);
+	    var url = "/sum?n=" + (n-1) + "&a=" + (a+n);
+	    res.redirect(url);
 	}
     });
 
