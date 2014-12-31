@@ -25,5 +25,17 @@ app.get('/fact', function(req, res) {
         }
     });
 
+app.get('/isPrime', function(req, res) {
+	var n = parseInt(req.param('n'),10),
+	    f = parseInt(req.param('f'),10) || 2;
+	if (f > Math.sqrt(n)) {
+	    res.status(200).send('Prime');
+	} else if (n % f === 0) {
+	    res.status(200).send('Composite');
+	} else {
+	    res.redirect('/isPrime?n=' + n + '&f=' + (f+1));
+	}
+    });
+
 app.listen(port);
 console.log('Server started on port ' + port);
