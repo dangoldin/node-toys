@@ -14,5 +14,16 @@ app.get('/sum', function(req, res) {
 	}
     });
 
+app.get('/fact', function(req, res) {
+	var n = parseInt(req.param('n'),10) || 1,
+            a = parseInt(req.param('a'),10) || 1;
+	if (n === 1) {
+            res.status(200).send('Factorial: ' + a);
+        } else {
+            var url = "/fact?n=" + (n-1) + "&a=" + (a*n);
+            res.redirect(url);
+        }
+    });
+
 app.listen(port);
 console.log('Server started on port ' + port);
